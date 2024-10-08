@@ -1,5 +1,6 @@
 package com.pieterv.basics.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.pieterv.basics.domain.ExampleData
 import com.pieterv.basics.service.ExampleService
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -21,6 +22,9 @@ class ExampleControllerTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
+
+    @Autowired
+    private lateinit var objectMapper: ObjectMapper
 
     @MockBean
     private lateinit var exampleService: ExampleService
@@ -58,12 +62,7 @@ class ExampleControllerTest {
         val newItem = ExampleData("3", "new item")
         `when`(exampleService.addItem(newItem)).thenReturn(newItem)
 
-        val requestBody = """
-            {
-                "id": "3",
-                "name": "new item"
-            }
-        """.trimIndent()
+        val requestBody = objectMapper.writeValueAsString(ExampleData("3", "new item"))
 
         mockMvc.perform(
             post("/item")
@@ -82,12 +81,7 @@ class ExampleControllerTest {
         val updatedItem = ExampleData("1", "updated item")
         `when`(exampleService.updateItem(updatedItem)).thenReturn(updatedItem)
 
-        val requestBody = """
-            {
-                "id": "1",
-                "name": "updated item"
-            }
-        """.trimIndent()
+        val requestBody = objectMapper.writeValueAsString(ExampleData("1", "updated item"))
 
         mockMvc.perform(
             put("/item")
