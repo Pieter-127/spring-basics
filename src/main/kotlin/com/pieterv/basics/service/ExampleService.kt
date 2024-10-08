@@ -7,5 +7,5 @@ interface ExampleService {
     fun getItem(id: String): ExampleData
     fun updateItem(update: ExampleData): ExampleData
     fun addItem(data: ExampleData): ExampleData
-    fun deleteItem(key: String): Boolean
+    fun deleteItem(id: String): Boolean
 }

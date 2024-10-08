@@ -25,7 +25,7 @@ class ExampleServiceImpl(private val exampleRepo: ExampleRepo) : ExampleService 
         return data
     }
 
-    override fun deleteItem(key: String): Boolean {
-        return exampleRepo.deleteData(key)
+    override fun deleteItem(id: String): Boolean {
+        return exampleRepo.deleteData(id)
     }
 }

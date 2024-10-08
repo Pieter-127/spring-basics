@@ -4,7 +4,12 @@ import com.pieterv.basics.domain.ExampleData
 import org.springframework.stereotype.Repository
 
 @Repository
-class ExampleRepoImpl : ExampleRepo {
+class ExampleRepoImpl(
+    val listOfData: ArrayList<ExampleData> = arrayListOf(
+        ExampleData("1", "hello"),
+        ExampleData("2", "world")
+    )
+) : ExampleRepo {
 
     override fun getListOfData(): List<ExampleData> {
         return listOfData
@@ -41,7 +46,4 @@ class ExampleRepoImpl : ExampleRepo {
         }
     }
 
-    private companion object {
-        val listOfData = arrayListOf(ExampleData("1", "hello"), ExampleData("2", "world"))
-    }
 }
